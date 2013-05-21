@@ -4,17 +4,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-<f:view>
-	<f:event type="preRenderView" listener="#{user.checkLogin}" />
 	<h:head>
-		<title>Welcome</title>
+		<h:outputStylesheet library="css" name="styles.css" />
+		<title>#{msgs.title}</title>
 	</h:head>
 	<h:body>
-		<h3><h:outputText value="Welcome to JavaServer Faces, #{user.name}!" /></h3>
 		<h:form>
-			<h:commandButton value="Logout" action="#{user.logout}" />
-			<h:commandButton value="Continue" action="enterDate" />
+			<h1>#{msgs.enterDate}</h1>
+			<h:panelGrid id="date" columns="2">
+				<f:event type="postValidate" listener="#{bb.validateDate}" />
+				
+				#{msgs.day}
+				<h:inputText id="day" value="#{bb.day}" size="2" required="true" />
+
+				#{msgs.month}
+				<h:inputText id="month" value="#{bb.month}" size="2" required="true" />
+
+				#{msgs.year}
+				<h:inputText id="year" value="#{bb.year}" size="4" required="true" />
+			</h:panelGrid>
+			<h:message for="date" styleClass="errorMessage" />
+			
+			<br />
+			
+			<h:commandButton value="#{msgs.submit}" action="result" />
+			<h:commandButton value="#{msgs.back}" action="index" immediate="true" />
 		</h:form>
 	</h:body>
-</f:view>
 </html>
